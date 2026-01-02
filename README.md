@@ -1,2 +1,2 @@
 # ejemplopipeline2
-Despliegue en AWS
+Despliegue en AWS.

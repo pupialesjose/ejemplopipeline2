@@ -1,6 +1,4 @@
 terraform {
-  required_version = ">= 1.0"
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -9,27 +7,13 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = var.aws_region
-}
+provider "aws" {}
 
-resource "aws_s3_bucket" "demo_bucket" {
-  bucket = "pipeline-demo-${random_id.suffix.hex}"
+resource "aws_instance" "demo" {
+  ami           = "ami-0b9064170e32bde34" # Amazon Linux 2 us-east-2
+  instance_type = "t2.micro"
 
   tags = {
-    Name        = "PipelineDemo"
-    Environment = "Dev"
+    Name = "ec2-terraform-demo"
   }
-}
-
-resource "random_id" "suffix" {
-  byte_length = 4
-}
-
-variable "aws_region" {
-  default = "us-east-1"
-}
-
-output "bucket_name" {
-  value = aws_s3_bucket.demo_bucket.bucket
 }
